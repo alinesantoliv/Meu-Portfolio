@@ -66,9 +66,3 @@ Portfólio desenvolvido com **HTML5 semântico**, **CSS3 responsivo** e **JavaSc
 | **T11** | Navegar apenas com teclado (`Tab`/`Enter`), em `360px` e com `zoom de 200%`. | Manter foco visível, acesso aos filtros/cards/formulário e ausência de rolagem horizontal. | Navegação integral via teclado e layout adaptado em `360px`, `768px`, `1280px` e `zoom 200%`. | Aprovado |
 | **T12** *(Extra)* | Aplicar filtro `"Back-end"`, trocar para `"Front-end/Web"` e retornar para `"Todos"`. | Atualizar contagem (`2`, `1`, `3`), estado `aria-pressed` e não duplicar cards. | Contagem e `aria-pressed` atualizados corretamente sem duplicação de elementos. | Aprovado |
 | **T13** *(Extra)* | Alternar entre tema claro e escuro e recarregar a página (`F5`). | Persistir preferência no `localStorage` e manter contraste legível em botões e erros. | Tema mantido após reload e contraste adequado em todos os componentes. | Aprovado |
-
----
-
-## Etapa 8 | Revisão Cruzada e Feedback
-
-- `[Colar aqui os registros da revisão cruzada e do feedback já realizados com o colega]`
