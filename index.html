@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio | Aline Oliveira</title>
+  <meta name="description" content="Portfólio de Aline Oliveira, estudante de Engenharia de Software e desenvolvedora em formação.">
+  <!-- Aplica o tema salvo antes da renderização para evitar flash visual -->
+  <script>try{var t=localStorage.getItem("tema")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Atalho de acessibilidade para navegação por teclado -->
+  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
+  <nav class="binder-nav" id="nav" aria-label="Navegação principal">
+    <div class="nav-links" id="nav-links">
+      <a href="#inicio" class="nav-tab" data-section="inicio">Início</a>
+      <a href="#sobre" class="nav-tab" data-section="sobre">Sobre mim</a>
+      <a href="#projetos" class="nav-tab" data-section="projetos">Projetos</a>
+      <a href="#habilidades" class="nav-tab" data-section="habilidades">Habilidades</a>
+      <a href="#contato" class="nav-tab" data-section="contato">Contato</a>
+    </div>
+    <button type="button" id="theme-btn" class="theme-btn" aria-pressed="false" aria-label="Ativar tema escuro"><span aria-hidden="true">🌙</span></button>
+  </nav>
+
+  <main id="conteudo">
+    <header id="inicio" class="section-cover">
+      <div class="cover-overlay" aria-hidden="true"></div>
+      <div class="hero">
+        <div class="hero-text">
+          <p class="hero-script">Portfólio</p>
+          <h1>Aline Oliveira</h1>
+          <p class="hero-role">
+            <svg class="hero-prompt" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            Estudante de Engenharia de Software
+          </p>
+          <div class="hero-actions">
+            <a href="#projetos" class="btn-primary">Ver projetos</a>
+            <a href="#contato" class="btn-secondary">Falar comigo</a>
+          </div>
+          <ul class="hero-social" aria-label="Redes e contato">
+            <li><a href="https://github.com/alinesantoliv" target="_blank" rel="noopener noreferrer" aria-label="GitHub (abre em nova aba)"><img class="ico-gh" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" aria-hidden="true"></a></li>
+            <li><a href="https://www.linkedin.com/in/aline-oliveira-2166372a3/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (abre em nova aba)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/linkedin/linkedin-original.svg" alt="" aria-hidden="true"></a></li>
+            <li><a href="mailto:alineoliveiraz2008@gmail.com" aria-label="Enviar e-mail para Aline">✉</a></li>
+          </ul>
+        </div>
+        <div class="hero-photo"><img src="alineprofiles.jpg" alt="Retrato de Aline Oliveira, de cabelo preto longo e liso, usando blusa preta"></div>
+      </div>
+    </header>
+
+    <section id="sobre" class="section-about fade-in-hidden" aria-labelledby="t-sobre">
+      <div class="cutting-mat-decor" aria-hidden="true"></div>
+      <div class="about-container">
+        <div class="id-card"><div class="photo-frame"><img src="alineanime.png" alt="Foto de Aline Oliveira" class="foto-perfil"></div></div>
+        <div class="binder-side">
+          <p class="greeting"><span class="greeting-script">Olá,</span> eu sou</p>
+          <h2 class="greeting-name" id="t-sobre">Aline Oliveira</h2>
+          <div class="binder-paper">
+            <div class="paper-block">
+              <h3 class="pill-label">Sobre mim</h3>
+              <p>Me chamo Aline, tenho 18 anos e sou estudante de Engenharia de Software na UCSal. Tenho interesse na área de desenvolvimento de software e, atualmente, estou aprendendo e aprimorando meus conhecimentos em programação, desenvolvimento web e criação de projetos.</p>
+              <p id="about-extra" hidden>Meu objetivo principal é continuar desenvolvendo minhas habilidades, criar projetos e adquirir experiência na área de tecnologia, atuando com foco em Desenvolvimento Back-end.</p>
+              <button type="button" id="toggle-about-btn" class="text-toggle-btn" aria-expanded="false" aria-controls="about-extra">Ler mais</button>
+            </div>
+            <div class="paper-block">
+              <h3 class="pill-label">Formação acadêmica</h3>
+              <ul class="paper-list">
+                <li><strong>Curso Técnico em Desenvolvimento de Sistemas</strong> - SENAI (Conclusão: 12/2025)</li>
+                <li><strong>Engenharia de Software</strong> - UCSal (2º semestre)</li>
+              </ul>
+            </div>
+            <div class="paper-block">
+              <h3 class="pill-label">Objetivo</h3>
+              <p>Desenvolver experiência profissional na área de TI e atuar como desenvolvedora full stack.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" class="section-projects fade-in-hidden" aria-labelledby="t-proj">
+      <div class="section-header-tab">
+        <h2 id="t-proj">Projetos</h2>
+        <p class="section-hint">Use o botão de cada cartão para virar e ver o contexto, público, contribuição e tecnologias.</p>
+      </div>
+      <div id="filtros" class="filtros" role="group" aria-label="Filtrar projetos por categoria"></div>
+      <p id="contagem" class="contagem" role="status"></p>
+      <div id="grade-projetos" class="photocards-grid"></div>
+      <div id="sem-resultados" class="sem-resultados" hidden>
+        <p>Nenhum projeto nesta categoria por enquanto.</p>
+        <button type="button" id="limpar-filtro" class="btn-secondary">Mostrar todos</button>
+      </div>
+    </section>
+
+    <section id="habilidades" class="section-skills fade-in-hidden" aria-labelledby="t-hab">
+      <div class="section-header-tab">
+        <h2 id="t-hab">Conhecimentos e Habilidades</h2>
+        <p class="section-hint">Tecnologias aplicadas em projetos acadêmicos de front-end, back-end, banco de dados e versionamento.</p>
+      </div>
+      <div class="skills-container"><div class="blister-pack">
+        <h3 class="tech-titulo">Tech Stack</h3>
+        <div class="tech-grid" id="tech-grid"></div>
+      </div></div>
+    </section>
+
+    <section id="contato" class="section-contact fade-in-hidden" aria-labelledby="t-contato">
+      <div class="contact-layout">
+        <h2 class="thank-you" id="t-contato">Vamos criar algo juntos?</h2>
+
+        <div class="crumpled-card">
+          <h3>Contatos</h3>
+          <div class="contact-pills">
+            <a href="mailto:alineoliveiraz2008@gmail.com" class="contact-pill">
+              <span class="pill-icon" aria-hidden="true">✉</span>alineoliveiraz2008@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/aline-oliveira-2166372a3/" target="_blank" rel="noopener noreferrer" class="contact-pill">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/linkedin/linkedin-original.svg" alt="" aria-hidden="true"> LinkedIn
+            </a>
+            <a href="https://github.com/alinesantoliv" target="_blank" rel="noopener noreferrer" class="contact-pill">
+              <img class="ico-gh" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" aria-hidden="true"> GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- novalidate delega o fluxo de feedback acessível ao JavaScript mantendo restrições nativas -->
+        <form id="form-contato" class="notepad-form" novalidate>
+          <p class="form-intro">Ou preencha o formulário abaixo. Sua mensagem é enviada diretamente para o meu e-mail!</p>
+
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required minlength="3" maxlength="80" autocomplete="name" aria-describedby="dica-nome erro-nome">
+            <span id="dica-nome" class="dica">De 3 a 80 caracteres (aceita acentos, espaços, hífen e apóstrofo).</span>
+            <span id="erro-nome" class="erro-msg" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" aria-describedby="dica-email erro-email">
+            <span id="dica-email" class="dica">Formato válido de e-mail.</span>
+            <span id="erro-email" class="erro-msg" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="motivo">Motivo do contato</label>
+            <select id="motivo" name="motivo" required aria-describedby="erro-motivo">
+              <option value="">Selecione um motivo...</option>
+              <option value="Oportunidade profissional">Oportunidade profissional</option>
+              <option value="Projeto freelance">Projeto freelance</option>
+              <option value="Outro">Outro</option>
+            </select>
+            <span id="erro-motivo" class="erro-msg" aria-live="polite"></span>
+          </div>
+          <div class="form-group" id="container-assunto" hidden>
+            <label for="assunto">Assunto adicional</label>
+            <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem..." minlength="5" maxlength="100" aria-describedby="dica-assunto erro-assunto" disabled>
+            <span id="dica-assunto" class="dica">De 5 a 100 caracteres (obrigatório apenas para "Outro").</span>
+            <span id="erro-assunto" class="erro-msg" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <div class="label-row"><label for="mensagem">Mensagem</label><span id="contador-msg">0 / 1000</span></div>
+            <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." rows="4" required minlength="30" maxlength="1000" aria-describedby="dica-mensagem erro-mensagem"></textarea>
+            <span id="dica-mensagem" class="dica">De 30 a 1000 caracteres úteis.</span>
+            <span id="erro-mensagem" class="erro-msg" aria-live="polite"></span>
+          </div>
+
+          <!-- Resumo textual dos problemas exibido ao tentar enviar com erros -->
+          <div id="resumo-erros" class="resumo-erros" role="alert" hidden><p></p><ul></ul></div>
+
+          <div id="status-envio" role="status"></div>
+          <button type="submit" id="btn-enviar" class="submit-btn">Enviar mensagem</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="tape-footer">
+    <p>© 2026 Aline Santos de Oliveira</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
