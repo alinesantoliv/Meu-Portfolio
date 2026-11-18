@@ -122,24 +122,24 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 .binder-nav {
   position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 1000;
   display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 4px;
-  padding: 8px 14px; background: rgba(255, 251, 240, 0.95); backdrop-filter: blur(12px);
+  padding: 6px 10px; background: rgba(255, 251, 240, 0.95); backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); border: 2px solid rgba(255, 255, 255, 0.95);
   border-radius: 999px; box-shadow: 0 8px 24px rgba(100, 13, 20, 0.16); 
-  width: fit-content; max-width: 96vw;
+  width: min(96vw, 660px);
 }
 
 .nav-links {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
-  gap: 4px;
+  justify-content: space-between;
+  gap: 2px;
   align-items: center;
   flex: 1;
   min-width: 0;
 }
 .nav-tab {
-  text-decoration: none; color: var(--cereja); font-size: 1rem; font-weight: 700;
-  padding: 8px 14px; border-radius: 999px; white-space: nowrap;
+  text-decoration: none; color: var(--cereja); font-size: 0.82rem; font-weight: 700;
+  padding: 6px 11px; border-radius: 999px; white-space: nowrap;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .nav-tab:hover { background: var(--rosa-claro); }
@@ -150,8 +150,8 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 }
 .theme-btn { 
   background: transparent; border: 1.5px solid var(--cereja); color: var(--cereja); 
-  border-radius: 999px; font: inherit; font-weight: 700; font-size: 1.05rem; padding: 6px 10px; cursor: pointer; 
-  margin-left: 6px; flex-shrink: 0; line-height: 1; min-width: 40px; min-height: 40px;
+  border-radius: 999px; font: inherit; font-weight: 700; font-size: 0.78rem; padding: 4px 8px; cursor: pointer; 
+  margin-left: 4px; flex-shrink: 0; line-height: 1;
 }
 
 /* Estilo da seção hero/capa */
@@ -428,10 +428,10 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 
 /* Adaptação para dispositivos móveis */
 @media (max-width: 768px) {
-  .binder-nav { padding: 6px 10px; }
+  .binder-nav { padding: 4px 6px; }
   .nav-links { flex-wrap: nowrap; gap: 2px; }
-  .nav-tab { font-size: 0.92rem; padding: 8px 10px; }
-  .theme-btn { font-size: 1rem; padding: 6px 9px; margin-left: 4px; }
+  .nav-tab { font-size: 0.75rem; padding: 4px 6px; letter-spacing: -0.02em; }
+  .theme-btn { font-size: 0.75rem; padding: 3px 5px; margin-left: 2px; }
   .section-cover { padding-top: 90px; }
   .cutting-mat-decor { width: 200px; height: 140px; right: -50px; }
   .about-container { flex-direction: column; align-items: center; gap: 24px; }
@@ -445,22 +445,20 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 }
 
 @media (max-width: 640px) {
-  :root { --nav-h: 112px; }
-  .binder-nav { width: calc(100vw - 16px); max-width: none; padding: 8px 10px; gap: 6px; border-radius: 28px; align-items: center; }
-  .nav-links { flex-wrap: wrap; justify-content: center; gap: 4px 4px; }
-  .nav-tab { font-size: 1rem; padding: 8px 12px; }
-  .theme-btn { padding: 6px 10px; font-size: 1.05rem; margin-left: 0; }
-  .section-cover { padding-top: 128px; }
+  .binder-nav { width: calc(100vw - 16px); padding: 4px 6px; gap: 2px; }
+  .nav-links { flex-wrap: nowrap; justify-content: space-between; gap: 0; }
+  .nav-tab { font-size: 0.65rem; padding: 4px 5px; letter-spacing: -0.03em; }
+  .theme-btn { padding: 3px 5px; font-size: 0.7rem; margin-left: 0; }
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Telas muito pequenas */
 @media (max-width: 390px) {
-  .binder-nav { border-radius: 24px; padding: 8px 8px; }
-  .nav-links { flex-wrap: wrap; justify-content: center; gap: 4px 2px; }
-  .nav-tab { font-size: 0.95rem; padding: 8px 10px; }
-  .theme-btn { font-size: 1rem; padding: 6px 9px; margin-left: 0; }
-  .section-cover { padding-top: 128px; }
+  .binder-nav { border-radius: 20px; padding: 4px 4px; }
+  .nav-links { flex-wrap: nowrap; justify-content: space-between; gap: 0; }
+  .nav-tab { font-size: 0.58rem; padding: 4px 3px; letter-spacing: -0.04em; }
+  .theme-btn { font-size: 0.6rem; padding: 3px 4px; margin-left: 0; }
+  .section-cover { padding-top: 112px; }
   .id-card { width: min(80%, 180px); } 
   .binder-paper { padding: 14px 12px 14px 34px; }
   .binder-paper::before { width: 24px; }
