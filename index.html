@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aline Oliveira | Portfólio</title>
+  <title>Portfólio | Aline Oliveira</title>
   <meta name="description" content="Portfólio de Aline Oliveira, estudante de Engenharia de Software e desenvolvedora em formação.">
-  <!-- Aplica o tema salvo antes da renderização para evitar flash visual -->
+  <!-- Script para carregar o tema salvo antes da renderização para evitar flash de cor -->
   <script>try{var t=localStorage.getItem("tema")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Atalho de acessibilidade para navegação por teclado -->
   <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
+  <!-- Barra de navegação principal fixada no topo -->
   <nav class="binder-nav" id="nav" aria-label="Navegação principal">
     <div class="nav-links" id="nav-links">
       <a href="#inicio" class="nav-tab" data-section="inicio">Início</a>
-      <a href="#sobre" class="nav-tab" data-section="sobre">Sobre mim</a>
+      <a href="#sobre" class="nav-tab" data-section="sobre">Sobre</a>
       <a href="#projetos" class="nav-tab" data-section="projetos">Projetos</a>
       <a href="#habilidades" class="nav-tab" data-section="habilidades">Habilidades</a>
       <a href="#contato" class="nav-tab" data-section="contato">Contato</a>
@@ -28,6 +28,7 @@
   </nav>
 
   <main id="conteudo">
+    <!-- Seção inicial de apresentação -->
     <header id="inicio" class="section-cover">
       <div class="cover-overlay" aria-hidden="true"></div>
       <div class="hero">
@@ -55,6 +56,7 @@
       </div>
     </header>
 
+    <!-- Seção sobre mim com layout de fichário -->
     <section id="sobre" class="section-about fade-in-hidden" aria-labelledby="t-sobre">
       <div class="cutting-mat-decor" aria-hidden="true"></div>
       <div class="about-container">
@@ -85,6 +87,7 @@
       </div>
     </section>
 
+    <!-- Seção de portfólio e filtragem -->
     <section id="projetos" class="section-projects fade-in-hidden" aria-labelledby="t-proj">
       <div class="section-header-tab">
         <h2 id="t-proj">Projetos</h2>
@@ -99,6 +102,7 @@
       </div>
     </section>
 
+    <!-- Grade de stack tecnológica -->
     <section id="habilidades" class="section-skills fade-in-hidden" aria-labelledby="t-hab">
       <div class="section-header-tab">
         <h2 id="t-hab">Conhecimentos e Habilidades</h2>
@@ -110,10 +114,10 @@
       </div></div>
     </section>
 
+    <!-- Formulário de contato dinâmico -->
     <section id="contato" class="section-contact fade-in-hidden" aria-labelledby="t-contato">
       <div class="contact-layout">
         <h2 class="thank-you" id="t-contato">Vamos criar algo juntos?</h2>
-
         <div class="crumpled-card">
           <h3>Contatos</h3>
           <div class="contact-pills">
@@ -129,7 +133,6 @@
           </div>
         </div>
 
-        <!-- novalidate delega o fluxo de feedback acessível ao JavaScript mantendo restrições nativas -->
         <form id="form-contato" class="notepad-form" novalidate>
           <p class="form-intro">Ou preencha o formulário abaixo. Sua mensagem é enviada diretamente para o meu e-mail!</p>
 
@@ -168,9 +171,7 @@
             <span id="erro-mensagem" class="erro-msg" aria-live="polite"></span>
           </div>
 
-          <!-- Resumo textual dos problemas exibido ao tentar enviar com erros -->
-          <div id="resumo-erros" class="resumo-erros" role="alert" hidden><p></p><ul></ul></div>
-
+          <div id="resumo-erros" class="resumo-erros" role="alert" aria-live="polite" hidden></div>
           <div id="status-envio" role="status"></div>
           <button type="submit" id="btn-enviar" class="submit-btn">Enviar mensagem</button>
         </form>
