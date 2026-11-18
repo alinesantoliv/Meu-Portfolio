@@ -1,22 +1,61 @@
 <!DOCTYPE html>
+
+<!--
+  ==================================================================
+  PORTFÓLIO DE ALINE OLIVEIRA — index.html
+  Este arquivo é o ESQUELETO da página: guarda os textos, imagens, botões e a estrutura de cada seção.
+  A aparência (cores, tamanhos, posições) fica em style.css e o comportamento (cliques, filtros, formulário) em script.js.
+
+  MAPA DA PÁGINA, de cima para baixo:
+  1. head: configurações invisíveis (título, fontes, ligação com o CSS)
+  2. Menu de navegação fixo no topo
+  3. Início: capa com nome, cargo, botões, redes sociais e foto
+  4. Sobre: apresentação, formação acadêmica e objetivo
+  5. Projetos: filtros e cartões (criados pelo JavaScript)
+  6. Habilidades: tecnologias (criadas pelo JavaScript)
+  7. Contato: links diretos e formulário
+  8. Rodapé e carregamento do script.js
+  ==================================================================
+-->
 <html lang="pt-BR">
 <head>
+  <!--
+    CABEÇALHO (head): informações que não aparecem na tela, mas configuram a página.
+    charset UTF-8 permite usar acentos e caracteres especiais (ç, ã, é...).
+  -->
   <meta charset="UTF-8">
+  <!-- Faz a página se ajustar à largura da tela do aparelho (essencial para o celular). -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Título exibido na aba do navegador. -->
   <title>Portfólio | Aline Oliveira</title>
+  <!-- Resumo da página, usado por buscadores como o Google. -->
   <meta name="description" content="Portfólio de Aline Oliveira, estudante de Engenharia de Software e desenvolvedora em formação.">
   <!-- Script para carregar o tema salvo antes da renderização para evitar flash de cor -->
   <script>try{var t=localStorage.getItem("tema")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}</script>
+  <!--
+    Fontes do Google Fonts (o preconnect acelera a conexão com o servidor das fontes).
+    Fira Code: estilo código | Playfair Display: títulos cursivos | Plus Jakarta Sans: texto geral.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Liga este HTML ao arquivo de estilos style.css (cores, layout e responsividade). -->
   <link rel="stylesheet" href="style.css">
 </head>
+<!-- CORPO DA PÁGINA (body): tudo o que aparece na tela. -->
 <body>
+  <!--
+    Link de acessibilidade 'Pular para o conteúdo': fica escondido e aparece ao apertar Tab,
+    permitindo que quem usa teclado ou leitor de tela vá direto ao conteúdo, sem passar pelo menu.
+  -->
   <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
   <!-- Barra de navegação principal fixada no topo -->
   <nav class="binder-nav" id="nav" aria-label="Navegação principal">
+    <!--
+      Grupo de links do menu: cada link leva a uma seção pelo id dela (#sobre, #projetos...).
+      O atributo data-section é lido pelo JavaScript para destacar o link da seção que está na tela.
+    -->
     <div class="nav-links" id="nav-links">
       <a href="#inicio" class="nav-tab" data-section="inicio">Início</a>
       <a href="#sobre" class="nav-tab" data-section="sobre">Sobre</a>
@@ -24,17 +63,25 @@
       <a href="#habilidades" class="nav-tab" data-section="habilidades">Habilidades</a>
       <a href="#contato" class="nav-tab" data-section="contato">Contato</a>
     </div>
+    <!-- Botão que alterna entre tema claro e escuro. O ícone e a preferência salva são controlados pelo script.js (função iniciarTema). -->
     <button type="button" id="theme-btn" class="theme-btn" aria-pressed="false" aria-label="Ativar tema escuro"><span aria-hidden="true">🌙</span></button>
   </nav>
 
+  <!-- CONTEÚDO PRINCIPAL: aqui ficam todas as seções (Início, Sobre, Projetos, Habilidades e Contato). -->
   <main id="conteudo">
     <!-- Seção inicial de apresentação -->
     <header id="inicio" class="section-cover">
+      <!-- Camada colorida semitransparente por cima do fundo da capa (só decoração, por isso aria-hidden). -->
       <div class="cover-overlay" aria-hidden="true"></div>
+      <!-- Grade da capa em duas colunas: textos à esquerda e foto à direita. -->
       <div class="hero">
+        <!-- Coluna da esquerda: textos de apresentação. -->
         <div class="hero-text">
+          <!-- Palavra 'Portfólio' em letra cursiva decorativa, acima do nome. -->
           <p class="hero-script">Portfólio</p>
+          <!-- Título principal da página: nome da Aline (só deve existir um h1 por página). -->
           <h1>Aline Oliveira</h1>
+          <!-- Cargo/profissão. O ícone de código é um SVG desenhado direto no HTML (não precisa de imagem externa). -->
           <p class="hero-role">
             <svg class="hero-prompt" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
               <polyline points="16 18 22 12 16 6"></polyline>
@@ -42,35 +89,51 @@
             </svg>
             Estudante de Engenharia de Software
           </p>
+          <!-- Botões de ação: 'Ver projetos' leva à seção Projetos e 'Falar comigo' leva ao Contato. -->
           <div class="hero-actions">
             <a href="#projetos" class="btn-primary">Ver projetos</a>
             <a href="#contato" class="btn-secondary">Falar comigo</a>
           </div>
+          <!--
+            Ícones redondos de redes sociais: GitHub, LinkedIn e e-mail (mailto abre o aplicativo de e-mail).
+            Os ícones vêm da CDN Devicon; target _blank abre em nova aba e rel noopener noreferrer protege a página original.
+          -->
           <ul class="hero-social" aria-label="Redes e contato">
             <li><a href="https://github.com/alinesantoliv" target="_blank" rel="noopener noreferrer" aria-label="GitHub (abre em nova aba)"><img class="ico-gh" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" aria-hidden="true"></a></li>
             <li><a href="https://www.linkedin.com/in/aline-oliveira-2166372a3/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (abre em nova aba)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/linkedin/linkedin-original.svg" alt="" aria-hidden="true"></a></li>
             <li><a href="mailto:alineoliveiraz2008@gmail.com" aria-label="Enviar e-mail para Aline">✉</a></li>
           </ul>
         </div>
+        <!-- Coluna da direita: foto de perfil (alineprofiles.jpg) com moldura em formato de arco. O texto alt descreve a imagem para leitores de tela. -->
         <div class="hero-photo"><img src="alineprofiles.jpg" alt="Retrato de Aline Oliveira, de cabelo preto longo e liso, usando blusa preta"></div>
       </div>
     </header>
 
     <!-- Seção sobre mim com layout de fichário -->
     <section id="sobre" class="section-about fade-in-hidden" aria-labelledby="t-sobre">
+      <!-- Retângulo quadriculado decorativo (estilo tapete de corte), no canto da seção. Não tem conteúdo. -->
       <div class="cutting-mat-decor" aria-hidden="true"></div>
+      <!-- Contêiner que organiza foto e fichário lado a lado (no celular, um embaixo do outro). -->
       <div class="about-container">
+        <!-- Cartão estilo crachá com a foto da Aline (alineanime.png). -->
         <div class="id-card"><div class="photo-frame"><img src="alineanime.png" alt="Foto de Aline Oliveira" class="foto-perfil"></div></div>
+        <!-- Lado direito: saudação, nome e a 'folha de fichário' com as informações. -->
         <div class="binder-side">
+          <!-- Saudação 'Olá, eu sou' (a palavra 'Olá,' usa letra cursiva) seguida do nome em destaque. -->
           <p class="greeting"><span class="greeting-script">Olá,</span> eu sou</p>
           <h2 class="greeting-name" id="t-sobre">Aline Oliveira</h2>
+          <!-- Folha de fichário com 3 blocos: Sobre mim, Formação acadêmica e Objetivo. -->
           <div class="binder-paper">
+            <!-- Bloco 1: Sobre mim (apresentação pessoal). -->
             <div class="paper-block">
               <h3 class="pill-label">Sobre mim</h3>
               <p>Me chamo Aline, tenho 18 anos e sou estudante de Engenharia de Software na UCSal. Tenho interesse na área de desenvolvimento de software e, atualmente, estou aprendendo e aprimorando meus conhecimentos em programação, desenvolvimento web e criação de projetos.</p>
+              <!-- Parágrafo extra, escondido por padrão (hidden). Aparece ao clicar em 'Ler mais' (controlado pelo script.js, função iniciarInteracoes). -->
               <p id="about-extra" hidden>Meu objetivo principal é continuar desenvolvendo minhas habilidades, criar projetos e adquirir experiência na área de tecnologia, atuando com foco em Desenvolvimento Back-end.</p>
+              <!-- Botão 'Ler mais' / 'Mostrar menos'. O aria-expanded informa a leitores de tela se o texto está aberto ou fechado. -->
               <button type="button" id="toggle-about-btn" class="text-toggle-btn" aria-expanded="false" aria-controls="about-extra">Ler mais</button>
             </div>
+            <!-- Bloco 2: Formação acadêmica (lista com curso técnico e graduação). -->
             <div class="paper-block">
               <h3 class="pill-label">Formação acadêmica</h3>
               <ul class="paper-list">
@@ -78,6 +141,7 @@
                 <li><strong>Engenharia de Software</strong> - UCSal (2º semestre)</li>
               </ul>
             </div>
+            <!-- Bloco 3: Objetivo profissional. -->
             <div class="paper-block">
               <h3 class="pill-label">Objetivo</h3>
               <p>Desenvolver experiência profissional na área de TI e atuar como desenvolvedora full stack.</p>
@@ -89,13 +153,24 @@
 
     <!-- Seção de portfólio e filtragem -->
     <section id="projetos" class="section-projects fade-in-hidden" aria-labelledby="t-proj">
+      <!-- Cabeçalho da seção: título e dica de como usar os cartões. -->
       <div class="section-header-tab">
         <h2 id="t-proj">Projetos</h2>
         <p class="section-hint">Use o botão de cada cartão para virar e ver o contexto, público, contribuição e tecnologias.</p>
       </div>
+      <!--
+        Barra de filtros: fica vazia no HTML. Os botões (Todos, Front-end/Web, Back-end) são criados pelo JavaScript
+        (script.js, função iniciarProjetos) a partir das categorias da lista PROJETOS.
+      -->
       <div id="filtros" class="filtros" role="group" aria-label="Filtrar projetos por categoria"></div>
+      <!--
+        Texto com a quantidade de projetos exibidos (ex.: '3 projetos encontrados'), preenchido pelo JavaScript.
+        role status faz o leitor de tela avisar quando o número muda.
+      -->
       <p id="contagem" class="contagem" role="status"></p>
+      <!-- Área onde os cartões dos projetos são inseridos pelo JavaScript (função criarCartao). Fica vazia no HTML de propósito. -->
       <div id="grade-projetos" class="photocards-grid"></div>
+      <!-- Aviso mostrado somente quando o filtro não encontra nenhum projeto (hidden por padrão), com botão para voltar a mostrar todos. -->
       <div id="sem-resultados" class="sem-resultados" hidden>
         <p>Nenhum projeto nesta categoria por enquanto.</p>
         <button type="button" id="limpar-filtro" class="btn-secondary">Mostrar todos</button>
@@ -104,22 +179,29 @@
 
     <!-- Grade de stack tecnológica -->
     <section id="habilidades" class="section-skills fade-in-hidden" aria-labelledby="t-hab">
+      <!-- Cabeçalho da seção de habilidades: título e descrição. -->
       <div class="section-header-tab">
         <h2 id="t-hab">Conhecimentos e Habilidades</h2>
         <p class="section-hint">Tecnologias aplicadas em projetos acadêmicos de front-end, back-end, banco de dados e versionamento.</p>
       </div>
+      <!-- Caixa (estilo embalagem blister) que guarda o título 'Tech Stack' e a grade de tecnologias. -->
       <div class="skills-container"><div class="blister-pack">
         <h3 class="tech-titulo">Tech Stack</h3>
+        <!-- Grade vazia: o JavaScript (função renderizarHabilidades) cria aqui um ícone, o nome e o contexto de cada tecnologia da lista HABILIDADES. -->
         <div class="tech-grid" id="tech-grid"></div>
       </div></div>
     </section>
 
     <!-- Formulário de contato dinâmico -->
     <section id="contato" class="section-contact fade-in-hidden" aria-labelledby="t-contato">
+      <!-- Contêiner centralizado da seção de contato. -->
       <div class="contact-layout">
+        <!-- Título convidativo da seção. -->
         <h2 class="thank-you" id="t-contato">Vamos criar algo juntos?</h2>
+        <!-- Cartão dourado com os contatos diretos. -->
         <div class="crumpled-card">
           <h3>Contatos</h3>
+          <!-- Os três contatos em formato de botão arredondado (pílula): e-mail, LinkedIn e GitHub. -->
           <div class="contact-pills">
             <a href="mailto:alineoliveiraz2008@gmail.com" class="contact-pill">
               <span class="pill-icon" aria-hidden="true">✉</span>alineoliveiraz2008@gmail.com
@@ -133,21 +215,32 @@
           </div>
         </div>
 
+        <!--
+          Formulário de contato. O atributo novalidate desliga as mensagens padrão do navegador, pois o JavaScript faz a validação
+          e mostra mensagens próprias e acessíveis. O envio é feito pelo serviço Formspree (ver script.js).
+        -->
         <form id="form-contato" class="notepad-form" novalidate>
           <p class="form-intro">Ou preencha o formulário abaixo. Sua mensagem é enviada diretamente para o meu e-mail!</p>
 
+          <!-- Campo Nome. -->
           <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required minlength="3" maxlength="80" autocomplete="name" aria-describedby="dica-nome erro-nome">
+            <!--
+              Cada campo tem uma dica fixa (regra do campo) e um espaço para a mensagem de erro, que o JavaScript preenche.
+              O aria-describedby do campo liga esses textos ao input para os leitores de tela.
+            -->
             <span id="dica-nome" class="dica">De 3 a 80 caracteres (aceita acentos, espaços, hífen e apóstrofo).</span>
             <span id="erro-nome" class="erro-msg" aria-live="polite"></span>
           </div>
+          <!-- Campo E-mail (o type email já pede formato de e-mail válido). -->
           <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" aria-describedby="dica-email erro-email">
             <span id="dica-email" class="dica">Formato válido de e-mail.</span>
             <span id="erro-email" class="erro-msg" aria-live="polite"></span>
           </div>
+          <!-- Campo Motivo do contato (lista de opções). Se a pessoa escolher 'Outro', o JavaScript mostra o campo 'Assunto adicional'. -->
           <div class="form-group">
             <label for="motivo">Motivo do contato</label>
             <select id="motivo" name="motivo" required aria-describedby="erro-motivo">
@@ -158,31 +251,39 @@
             </select>
             <span id="erro-motivo" class="erro-msg" aria-live="polite"></span>
           </div>
+          <!-- Campo 'Assunto adicional': escondido e desabilitado por padrão. Só aparece (via JavaScript) quando o motivo é 'Outro'. -->
           <div class="form-group" id="container-assunto" hidden>
             <label for="assunto">Assunto adicional</label>
             <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem..." minlength="5" maxlength="100" aria-describedby="dica-assunto erro-assunto" disabled>
             <span id="dica-assunto" class="dica">De 5 a 100 caracteres (obrigatório apenas para "Outro").</span>
             <span id="erro-assunto" class="erro-msg" aria-live="polite"></span>
           </div>
+          <!-- Campo Mensagem. -->
           <div class="form-group">
+            <!-- Linha com o rótulo 'Mensagem' e o contador de caracteres (0 / 1000), atualizado pelo JavaScript. -->
             <div class="label-row"><label for="mensagem">Mensagem</label><span id="contador-msg">0 / 1000</span></div>
             <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." rows="4" required minlength="30" maxlength="1000" aria-describedby="dica-mensagem erro-mensagem"></textarea>
             <span id="dica-mensagem" class="dica">De 30 a 1000 caracteres úteis.</span>
             <span id="erro-mensagem" class="erro-msg" aria-live="polite"></span>
           </div>
 
+          <!-- Resumo geral de erros: só aparece quando se tenta enviar com campos inválidos. -->
           <div id="resumo-erros" class="resumo-erros" role="alert" aria-live="polite" hidden></div>
+          <!-- Área de status do envio: mostra 'Enviando...', mensagem de sucesso ou de falha. -->
           <div id="status-envio" role="status"></div>
+          <!-- Botão de enviar: o JavaScript o desativa durante o envio para evitar cliques repetidos. -->
           <button type="submit" id="btn-enviar" class="submit-btn">Enviar mensagem</button>
         </form>
       </div>
     </section>
   </main>
 
+  <!-- RODAPÉ: direitos autorais. -->
   <footer class="tape-footer">
     <p>© 2026 Aline Santos de Oliveira</p>
   </footer>
 
+  <!-- Carrega o JavaScript. O defer faz o script rodar só depois que todo o HTML foi carregado. -->
   <script src="script.js" defer></script>
 </body>
 </html>
