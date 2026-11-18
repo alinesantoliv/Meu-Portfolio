@@ -1,5 +1,4 @@
 // Dados do projeto e hablidades
-// Fonte única de dados dos projetos (separada da lógica de filtro e interface)
 window.PROJETOS = [
   {
     nome: "Portfólio Pessoal",
@@ -51,7 +50,6 @@ window.HABILIDADES = [
   { nome: "Git & GitHub", contexto: "Versionamento de código", icone: D + "github/github-original.svg" }
 ];
 
-// funcionalidades gerais do portfólio (tema, menu, interações, projetos e habilidades)
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
@@ -62,7 +60,6 @@ window.HABILIDADES = [
     return e;
   };
 
-  // Alternância acessível entre tema claro e escuro
   function iniciarTema() {
     const botao = $("theme-btn");
     const aplicar = (tema) => {
@@ -80,25 +77,20 @@ window.HABILIDADES = [
     });
   }
 
-  // Destaca a seção visível no menu com aria-current="location"
   function iniciarMenu() {
     const nav = $("nav");
     const abas = nav.querySelectorAll(".nav-tab");
-    
     const marcar = (id) => abas.forEach((a) => {
       if (a.dataset.section === id) a.setAttribute("aria-current", "location"); 
       else a.removeAttribute("aria-current");
     });
-    
     const obs = new IntersectionObserver((itens) => {
       itens.forEach((i) => { if (i.isIntersecting) marcar(i.target.id); });
     }, { rootMargin: "-45% 0px -50% 0px" });
-    
     document.querySelectorAll("header[id], section[id]").forEach((s) => obs.observe(s));
     marcar("inicio");
   }
 
-  // Expansão do texto "Sobre mim" e revelação suave das seções
   function iniciarInteracoes() {
     const b = $("toggle-about-btn"), extra = $("about-extra");
     b.addEventListener("click", () => {
@@ -107,7 +99,6 @@ window.HABILIDADES = [
       b.setAttribute("aria-expanded", String(abrir));
       b.textContent = abrir ? "Mostrar menos" : "Ler mais";
     });
-
     const animObs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -116,11 +107,9 @@ window.HABILIDADES = [
         }
       });
     }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
-
     document.querySelectorAll(".fade-in-hidden").forEach((el) => animObs.observe(el));
   }
 
-  // Renderiza as habilidades com ícone, nome e contexto de aplicação
   function renderizarHabilidades() {
     const grade = $("tech-grid");
     window.HABILIDADES.forEach((h) => {
@@ -130,22 +119,18 @@ window.HABILIDADES = [
       img.src = h.icone; 
       img.alt = h.nome; 
       img.loading = "lazy"; 
-      
       const nomeText = criar("span", "tech-name", h.nome);
       const contextoText = criar("span", "tech-cat", h.contexto);
-
       icone.appendChild(img);
       item.append(icone, nomeText, contextoText);
       grade.appendChild(item);
     });
   }
 
-  // Cria o card interativo de projeto usando textContent e inert para foco acessível
   function criarCartao(p, indice, total) {
     const card = criar("article", "photocard-wrapper");
     card.dataset.categoria = p.categoria;
     const inner = criar("div", "photocard-inner");
-
     const frente = criar("div", "photocard-front");
     const meta = criar("div", "card-top-meta");
     meta.append(
@@ -156,7 +141,6 @@ window.HABILIDADES = [
     const pre = criar("pre");
     pre.appendChild(criar("code", "", p.arte));
     arte.appendChild(pre);
-
     const legenda = criar("div", "card-caption");
     legenda.appendChild(criar("h3", "", p.nome));
     const abrir = criar("button", "card-btn", "Ver detalhes");
@@ -165,13 +149,11 @@ window.HABILIDADES = [
     abrir.setAttribute("aria-label", "Ver detalhes de " + p.nome);
     legenda.appendChild(abrir);
     frente.append(meta, arte, legenda);
-
     const verso = criar("div", "photocard-back");
-    verso.inert = true; // Impede foco via Tab enquanto o verso estiver oculto
+    verso.inert = true;
     const topo = criar("div", "card-back-header", p.tipo);
     const corpo = criar("div", "card-back-body");
     corpo.appendChild(criar("h3", "", p.nome));
-
     const detalhes = criar("ul", "card-detalhes-lista");
     const itensDetalhes = [
       ["Problema: ", p.problema],
@@ -184,10 +166,8 @@ window.HABILIDADES = [
       detalhes.appendChild(li);
     });
     corpo.appendChild(detalhes);
-    
     const techs = criar("div", "card-techs");
     p.techs.forEach((t) => techs.appendChild(criar("span", "", t)));
-    
     const acoes = criar("div", "card-acoes");
     if (p.repo) {
       const a = criar("a", "repo-btn", "Repositório");
@@ -203,11 +183,9 @@ window.HABILIDADES = [
       a.rel = "noopener noreferrer";
       acoes.appendChild(a);
     }
-    
     const voltar = criar("button", "card-btn", "Voltar");
     voltar.type = "button";
     verso.append(topo, corpo, techs, acoes, voltar);
-
     const alternar = (virar) => {
       card.classList.toggle("flipped", virar);
       frente.inert = virar;
@@ -217,22 +195,17 @@ window.HABILIDADES = [
     };
     abrir.addEventListener("click", () => alternar(true));
     voltar.addEventListener("click", () => alternar(false));
-    
     inner.append(frente, verso);
     card.appendChild(inner);
     return card;
   }
 
-  // Inicializa o filtro por categoria com estado programático (aria-pressed) e contagem
   function iniciarProjetos() {
     const grade = $("grade-projetos"), barra = $("filtros"), contagem = $("contagem"), vazio = $("sem-resultados");
     const cartoes = window.PROJETOS.map((p, i) => criarCartao(p, i, window.PROJETOS.length));
     cartoes.forEach((c) => grade.appendChild(c));
-
-    // Categorias derivadas dinamicamente dos dados dos projetos
     const categorias = ["Todos", ...new Set(window.PROJETOS.map((p) => p.categoria))];
     let ativo = "Todos";
-    
     const botoes = categorias.map((cat) => {
       const b = criar("button", "filtro-btn", cat);
       b.type = "button";
@@ -240,7 +213,6 @@ window.HABILIDADES = [
       barra.appendChild(b);
       return b;
     });
-
     function filtrar(cat) {
       ativo = cat;
       botoes.forEach((b) => {
@@ -257,7 +229,6 @@ window.HABILIDADES = [
       contagem.textContent = n === 1 ? "1 projeto encontrado" : n + " projetos encontrados";
       vazio.hidden = n !== 0;
     }
-
     $("limpar-filtro").addEventListener("click", () => filtrar("Todos"));
     filtrar(ativo);
   }
@@ -269,14 +240,13 @@ window.HABILIDADES = [
   iniciarProjetos();
 })();
 
-// formulário de contato com validação e envio assíncrono 
+// formulário de contato
 (function () {
   "use strict";
   const URL_ENVIO = "https://formspree.io/f/mrpqgelp"; 
   const TEMPO_LIMITE_MS = 10000;
   const $ = (id) => document.getElementById(id);
 
-  // Seleção dos elementos do DOM
   function selecionarElementos() {
     return {
       form: $("form-contato"),
@@ -297,7 +267,6 @@ window.HABILIDADES = [
   const campos = [el.nome, el.email, el.motivo, el.assunto, el.mensagem];
   let enviando = false;
 
-  // Leitura e normalização (mesmo critério de contagem no contador e na validação)
   const contarCaracteresUteis = (texto) => texto.trim().length;
 
   function lerDadosFormulario() {
@@ -307,14 +276,12 @@ window.HABILIDADES = [
       motivo: el.motivo.value,
       mensagem: el.mensagem.value.trim()
     };
-    // Só inclui assunto adicional nos dados processados quando o motivo for "Outro"
     if (!el.assunto.disabled) {
       dados.assunto = el.assunto.value.trim();
     }
     return dados;
   }
 
-  // Regras de validação (combinam restrições nativas e regras de negócio)
   const foraDaFaixa = (n, min, max) => n < min || n > max;
 
   const regras = {
@@ -336,11 +303,11 @@ window.HABILIDADES = [
       : ""
   };
 
-  const obterRotulo = (campo) => document.querySelector('label[for="' + campo.id + '"]').textContent;
-
-  // Apresentação de erros e feedback visual/acessível
+  // CORREÇÃO DO CINZA: esconde a dica quando tem erro, mostra de novo quando corrigir
   function mostrarErroCampo(campo, msg) {
     $("erro-" + campo.id).textContent = msg;
+    const dica = $("dica-" + campo.id);
+    if (dica) dica.hidden = !!msg;
     if (msg) {
       campo.setAttribute("aria-invalid", "true");
     } else {
@@ -355,21 +322,19 @@ window.HABILIDADES = [
   }
 
   function atualizarResumoErros() {
-    const lista = el.resumo.querySelector("ul");
-    lista.replaceChildren(); // Limpa itens anteriores antes de reconstruir a lista
-
     const invalidos = campos.filter((c) => c.getAttribute("aria-invalid") === "true");
-    el.resumo.hidden = invalidos.length === 0;
-    if (!invalidos.length) return;
-
-    el.resumo.querySelector("p").textContent =
-      "Corrija " + invalidos.length + (invalidos.length === 1 ? " campo:" : " campos:");
-
+    if (!invalidos.length) { el.resumo.hidden = true; return; }
+    const titulo = document.createElement("p");
+    titulo.textContent = `Corrija ${invalidos.length} campo(s) antes de enviar:`;
+    const lista = document.createElement("ul");
     invalidos.forEach((c) => {
       const li = document.createElement("li");
-      li.textContent = obterRotulo(c) + ": " + regras[c.id]();
+      const rotulo = document.querySelector(`label[for="${c.id}"]`).textContent;
+      li.textContent = rotulo + ": " + $("erro-" + c.id).textContent;
       lista.appendChild(li);
     });
+    el.resumo.replaceChildren(titulo, lista);
+    el.resumo.hidden = false;
   }
 
   function definirStatus(texto, tipo) {
@@ -383,13 +348,11 @@ window.HABILIDADES = [
     el.contador.classList.toggle("contador-alerta", n > 1000 || (n > 0 && n < 30));
   }
 
-  // Controla visibilidade, obrigatoriedade e limpeza do campo condicional "Assunto adicional"
   function atualizarAssuntoCondicional() {
     const outro = el.motivo.value === "Outro";
     el.bloco.hidden = !outro;
     el.assunto.disabled = !outro;
     el.assunto.required = outro;
-
     if (!outro) {
       el.assunto.value = "";
       mostrarErroCampo(el.assunto, "");
@@ -406,7 +369,6 @@ window.HABILIDADES = [
     el.botao.textContent = ativo ? "Enviando..." : "Enviar mensagem";
   }
 
-  // Processamento assíncrono do envio (integração real com Formspree)
   async function enviarParaServidor(dados) {
     const controle = new AbortController();
     const limite = setTimeout(() => controle.abort(), TEMPO_LIMITE_MS);
@@ -414,7 +376,6 @@ window.HABILIDADES = [
       _subject: "Portfólio: " + dados.motivo + (dados.assunto ? " - " + dados.assunto : ""),
       ...dados
     };
-
     try {
       const resposta = await fetch(URL_ENVIO, {
         method: "POST",
@@ -430,26 +391,30 @@ window.HABILIDADES = [
 
   async function processarEnvio(e) {
     e.preventDefault();
-    if (enviando) return; // Impede envios concorrentes por cliques rápidos
+    if (enviando) return;
     definirStatus("", "");
-    
     campos.forEach((c) => validarCampo(c));
     atualizarResumoErros();
-
     const invalidos = campos.filter((c) => c.getAttribute("aria-invalid") === "true");
     if (invalidos.length) { 
-      definirStatus("Não enviado: há campos para corrigir.", "erro"); 
       invalidos[0].focus(); 
       return; 
     }
-
     definirEstadoEnvio(true);
     definirStatus("Enviando sua mensagem...", "processando");
-
     try {
       await enviarParaServidor(lerDadosFormulario());
       el.form.reset(); 
       el.resumo.hidden = true;
+      // Mostra as dicas de novo depois do envio com sucesso
+      ["nome","email","assunto","mensagem"].forEach((id) => {
+        const d = $("dica-" + id);
+        if (d) d.hidden = false;
+        const c = $(id);
+        if (c) c.removeAttribute("aria-invalid");
+        const e2 = $("erro-" + id);
+        if (e2) e2.textContent = "";
+      });
       atualizarAssuntoCondicional(); 
       atualizarContador();
       definirStatus("Mensagem enviada com sucesso! Responderei no e-mail informado.", "sucesso");
