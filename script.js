@@ -60,6 +60,7 @@ window.HABILIDADES = [
     return e;
   };
 
+  // Aplica o tema escuro/claro e salva a preferência no localStorage
   function iniciarTema() {
     const botao = $("theme-btn");
     const aplicar = (tema) => {
@@ -77,6 +78,7 @@ window.HABILIDADES = [
     });
   }
 
+  // Destaca no menu superior a seção atual lida usando IntersectionObserver
   function iniciarMenu() {
     const nav = $("nav");
     const abas = nav.querySelectorAll(".nav-tab");
@@ -91,6 +93,7 @@ window.HABILIDADES = [
     marcar("inicio");
   }
 
+  // Lida com botões tipo "Ler mais" e a animação de fade-in da rolagem de tela
   function iniciarInteracoes() {
     const b = $("toggle-about-btn"), extra = $("about-extra");
     b.addEventListener("click", () => {
@@ -110,6 +113,7 @@ window.HABILIDADES = [
     document.querySelectorAll(".fade-in-hidden").forEach((el) => animObs.observe(el));
   }
 
+  // Cria e anexa as divs das tecnologias com base na lista de HABILIDADES
   function renderizarHabilidades() {
     const grade = $("tech-grid");
     window.HABILIDADES.forEach((h) => {
@@ -127,6 +131,7 @@ window.HABILIDADES = [
     });
   }
 
+  // Gera o HTML do card de cada projeto, incluindo o funcionamento de rotação (flip)
   function criarCartao(p, indice, total) {
     const card = criar("article", "photocard-wrapper");
     card.dataset.categoria = p.categoria;
@@ -200,6 +205,7 @@ window.HABILIDADES = [
     return card;
   }
 
+  // Gera dinamicamente os botões de filtros de projetos e sua mecânica de exibição
   function iniciarProjetos() {
     const grade = $("grade-projetos"), barra = $("filtros"), contagem = $("contagem"), vazio = $("sem-resultados");
     const cartoes = window.PROJETOS.map((p, i) => criarCartao(p, i, window.PROJETOS.length));
@@ -284,6 +290,7 @@ window.HABILIDADES = [
 
   const foraDaFaixa = (n, min, max) => n < min || n > max;
 
+  // Objeto centralizando as regras de validação para cada campo do form
   const regras = {
     nome: () => foraDaFaixa(contarCaracteresUteis(el.nome.value), 3, 80)
       ? "O nome deve ter entre 3 e 80 caracteres úteis."
@@ -323,18 +330,9 @@ window.HABILIDADES = [
 
   function atualizarResumoErros() {
     const invalidos = campos.filter((c) => c.getAttribute("aria-invalid") === "true");
-    if (!invalidos.length) { el.resumo.hidden = true; return; }
-    const titulo = document.createElement("p");
-    titulo.textContent = `Corrija ${invalidos.length} campo(s) antes de enviar:`;
-    const lista = document.createElement("ul");
-    invalidos.forEach((c) => {
-      const li = document.createElement("li");
-      const rotulo = document.querySelector(`label[for="${c.id}"]`).textContent;
-      li.textContent = rotulo + ": " + $("erro-" + c.id).textContent;
-      lista.appendChild(li);
-    });
-    el.resumo.replaceChildren(titulo, lista);
-    el.resumo.hidden = false;
+    el.resumo.hidden = invalidos.length === 0;
+    if (!invalidos.length) return;
+    el.resumo.textContent = `Corrija ${invalidos.length} campo(s) antes de enviar.`;
   }
 
   function definirStatus(texto, tipo) {
@@ -348,6 +346,7 @@ window.HABILIDADES = [
     el.contador.classList.toggle("contador-alerta", n > 1000 || (n > 0 && n < 30));
   }
 
+  // Torna obrigatório ou esconde o campo de "assunto" caso a opção Outro seja escolhida
   function atualizarAssuntoCondicional() {
     const outro = el.motivo.value === "Outro";
     el.bloco.hidden = !outro;
@@ -369,6 +368,7 @@ window.HABILIDADES = [
     el.botao.textContent = ativo ? "Enviando..." : "Enviar mensagem";
   }
 
+  // Processa a requisição POST na API de form com tempo limite estipulado
   async function enviarParaServidor(dados) {
     const controle = new AbortController();
     const limite = setTimeout(() => controle.abort(), TEMPO_LIMITE_MS);
@@ -389,6 +389,7 @@ window.HABILIDADES = [
     }
   }
 
+  // Orquestra a validação final antes do envio real, limpando o form no sucesso
   async function processarEnvio(e) {
     e.preventDefault();
     if (enviando) return;
