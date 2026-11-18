@@ -1,21 +1,50 @@
+/* ==================================================================
+   style.css — ESTILOS (APARÊNCIA) DO PORTFÓLIO
+   O HTML guarda o conteúdo; este arquivo define como ele APARECE: cores, tamanhos, posições, animações e adaptação ao celular.
+
+   ÍNDICE:
+   1. Variáveis de cor (tema claro e escuro)
+   2. Reset e regras globais
+   3. Acessibilidade e animação de entrada
+   4. Menu de navegação
+   5. Início (capa) e botões
+   6. Sobre mim (fichário)
+   7. Projetos (filtros e cartões giratórios)
+   8. Habilidades (Tech Stack)
+   9. Contato (cartão de contatos e formulário)
+   10. Rodapé
+   11. Ajustes do tema escuro
+   12. Responsividade (tablet e celular)
+   13. Movimento reduzido (acessibilidade)
+   ================================================================== */
+
+/* ==================================================================
+   1. VARIÁVEIS DE COR (TEMA CLARO E ESCURO)
+   Cada cor é definida uma vez e reutilizada no arquivo com var(--nome). Trocar o tema = trocar os valores.
+   ================================================================== */
 /* Tokens de cores e variáveis globais */
 :root {
+  /* Paleta principal: bege, damasco (dourado), rosa, vermelho e cereja (vinho escuro, usado como cor do texto). */
   --bege: #F3E6BD;       
   --damasco: #D8973C;    
   --rosa: #FD9BB7;       
   --vermelho: #AD2831;   
   --cereja: #640D14;     
+  /* Tons de apoio: variações de bege e rosa, cor do papel do fichário, linhas do papel, texto secundário e branco. */
   --bege-escuro: #E9D49B;
   --rosa-claro: #FDC3D3;
   --papel: #FFFBF0;
   --papel-linha: #f0e2c0;
   --texto-suave: #7d3a3f;
   --white: #ffffff;
+  /* Cores de função: foco (contorno ao navegar com Tab), acento (rosa forte decorativo) e erro (mensagens de erro). */
   --foco: #1d4ed8;
   --acento: #dc1467;
   --erro: #b00040;
+  /* Cores das argolas metálicas do fichário. */
   --binder-ring-top: #f1f5f9;
   --binder-ring-bot: #94a3b8;
+  /* Cores dos botões de filtro da seção Projetos (normal, hover e ativo). */
   --filtro-border: #ffffff;
   --filtro-bg: transparent;
   --filtro-color: #ffffff;
@@ -23,15 +52,20 @@
   --filtro-ativo-bg: #ffffff;
   --filtro-ativo-color: #AD2831;
   --filtro-ativo-border: #ffffff;
+  /* Cores dos botões principais (normal e ao passar o mouse). */
   --btn-bg: #AD2831;
   --btn-hover-bg: #640D14;
+  /* Sombras padrão (normal e ao passar o mouse). */
   --shadow-soft: 0 8px 20px rgba(100, 13, 20, 0.18);
   --shadow-hover: 0 16px 32px rgba(100, 13, 20, 0.28);
+  /* Altura reservada para o menu fixo (usada para compensar a rolagem das seções). */
   --nav-h: 70px;
 }
 
 /* Modificação das variáveis para o modo escuro */
 [data-theme="dark"] {
+  /* Os nomes das variáveis são os MESMOS, só os valores mudam para tons escuros. Por isso o site inteiro muda de cor sem reescrever as regras.
+     Ex.: --cereja (texto) vira cinza claro e --bege (fundo) vira quase preto. */
   --bege: #121212; 
   --bege-escuro: #2c2c2c; 
   --rosa: #1b1b1b; 
@@ -43,11 +77,15 @@
   --vermelho: #ff4d79; 
   --damasco: #ff8cb8; 
   --white: #242424;
+  /* Foco e erro ajustados para boa leitura no escuro. */
   --foco: #ffd166; 
   --erro: #ff7a9c; 
+  /* Argolas do fichário em tons de cinza. */
   --binder-ring-top: #444444;
   --binder-ring-bot: #777777;
+  /* Fundo de campo inválido do formulário no escuro (no claro, o CSS usa um valor padrão). */
   --form-invalid-bg: #321620;
+  /* Botões de filtro no tema escuro. */
   --filtro-border: #ff4d79;
   --filtro-bg: #1f1f1f;
   --filtro-color: #f0f0f0;
@@ -55,37 +93,57 @@
   --filtro-ativo-bg: #c81e4b;
   --filtro-ativo-color: #ffffff;
   --filtro-ativo-border: #ff4d79;
+  /* Botões no tema escuro (cor escolhida para ter bom contraste com o texto branco). */
   --btn-bg: #c81e4b;
   --btn-hover-bg: #9f1539;
+  /* Sombras mais fortes, para aparecerem no fundo escuro. */
   --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.65); 
   --shadow-hover: 0 16px 32px rgba(0, 0, 0, 0.8); 
+  /* Avisa ao navegador que o tema é escuro (barras de rolagem e campos nativos também escurecem). */
   color-scheme: dark;
 }
 
+/* ==================================================================
+   2. RESET E REGRAS GLOBAIS
+   Regras que valem para a página inteira.
+   ================================================================== */
 /* Reset básico e estilização padrão do documento */
+/* O * significa 'todos os elementos': zera margens e espaçamentos padrão do navegador e faz padding e borda
+   contarem dentro da largura do elemento (box-sizing). */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Fonte padrão da página, cor do texto e cor de fundo. */
 html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--cereja);
   background-color: var(--bege);
 }
+/* Rolagem suave ao clicar nos links do menu, apenas para quem não pediu redução de movimento no sistema. */
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
 
+/* Impede rolagem horizontal e define o espaçamento entre as linhas de texto. */
 body { overflow-x: hidden; line-height: 1.6; }
+/* Imagens nunca ultrapassam a largura do contêiner onde estão. */
 img { max-width: 100%; height: auto; }
+/* Garante que elementos com o atributo hidden realmente sumam (o JavaScript usa isso para esconder e mostrar coisas). */
 [hidden] { display: none !important; }
+/* Ao navegar para uma seção, deixa uma margem no topo para o menu fixo não cobrir o título dela. */
 section, header[id] { scroll-margin-top: var(--nav-h); }
 
 /* Transições globais de tema para uma troca suave */
+/* Lista de elementos que 'animam' a mudança de cor (0,3 segundo) ao alternar entre tema claro e escuro. */
 html, body, .binder-nav, .photocard-front, .photocard-back, .notepad-form,
 .binder-paper, .crumpled-card, .blister-pack, .section-about, .section-contact,
 .section-skills, .tape-footer {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+/* ==================================================================
+   3. ACESSIBILIDADE E ANIMAÇÃO DE ENTRADA
+   Foco visível para teclado, link de pular conteúdo, efeito de fade-in e altura das seções.
+   ================================================================== */
 /* Estilo de foco unificado para acessibilidade */
 a:focus-visible, button:focus-visible, input:focus-visible,
 select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
@@ -93,6 +151,7 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   outline-offset: 3px;
 }
 
+/* Link 'Pular para o conteúdo': fica fora da tela (top negativo) e só aparece quando recebe foco pelo teclado (regra .skip-link:focus). */
 .skip-link {
   position: absolute; left: 10px; top: -60px; z-index: 2000;
   padding: 10px 16px; background: var(--white); color: var(--cereja);
@@ -101,24 +160,35 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 .skip-link:focus { top: 10px; }
 
 /* Classes utilitárias para animação de fade-in via script */
+/* Estado inicial das seções: invisíveis e 18px mais abaixo. O JavaScript troca para a classe abaixo quando a seção entra na tela. */
 .fade-in-hidden {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.35s ease-out, transform 0.35s ease-out;
 }
+/* Estado final: visível e na posição normal. A transição acima faz a seção 'subir' suavemente. */
 .fade-in-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Cada seção ocupa pelo menos a altura da tela (menos o menu). O flex em coluna com justify-content center centraliza o conteúdo na vertical.
+   O svh usa a altura real visível em celulares. */
 .section-about, .section-skills, .section-projects, .section-contact {
   min-height: calc(100vh - var(--nav-h));
   min-height: calc(100svh - var(--nav-h));
   display: flex; flex-direction: column; justify-content: center;
 }
+/* Projetos e Habilidades começam do topo, em vez de ficarem centralizadas. */
 .section-skills, .section-projects { justify-content: flex-start; }
 
+/* ==================================================================
+   4. MENU DE NAVEGAÇÃO
+   Barra fixa no topo com os links das seções e o botão de tema.
+   ================================================================== */
 /* navegação fixa - tudo em uma linha, mesmo no mobile - IGUAL AO PRINT */
+/* Barra do menu: fixa no topo (position fixed), centralizada, em formato de pílula (border-radius alto),
+   com fundo translúcido e desfoque do que está atrás (backdrop-filter). */
 .binder-nav {
   position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 1000;
   display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; gap: 28px;
@@ -128,6 +198,7 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   width: fit-content; max-width: 96vw;
 }
 
+/* Agrupa os links do menu lado a lado, sem quebrar linha. */
 .nav-links {
   display: flex;
   flex-wrap: nowrap;
@@ -137,25 +208,33 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   flex: 1;
   min-width: 0;
 }
+/* Cada link do menu: sem sublinhado, texto escuro e em negrito. */
 .nav-tab {
   text-decoration: none; color: #2b2b2b; font-size: 17px; font-weight: 700;
   letter-spacing: -0.2px; line-height: 1;
   padding: 0; border-radius: 999px; white-space: nowrap;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+/* Ao passar o mouse, o texto fica preto. */
 .nav-tab:hover { background: transparent; color: #000; }
+/* Link da seção atual (o JavaScript coloca o aria-current): ganha fundo vermelho e texto branco. */
 .nav-tab[aria-current] {
   background: var(--btn-bg);
   color: #ffffff;
   box-shadow: 0 4px 10px rgba(173, 40, 49, 0.3);
   padding: 8px 14px;
 }
+/* Botão de trocar tema: sem fundo e sem borda, aparece só o emoji. */
 .theme-btn { 
   background: transparent; border: none; color: #2b2b2b; 
   border-radius: 999px; font: inherit; font-weight: 700; font-size: 20px; padding: 0; cursor: pointer; 
   margin-left: 6px; flex-shrink: 0; line-height: 1;
 }
 
+/* ==================================================================
+   5. INÍCIO (CAPA) E BOTÕES
+   Primeira tela da página: nome, cargo, botões, redes sociais e foto.
+   ================================================================== */
 /* Estilo da seção hero/capa */
 .section-cover {
   position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh;
@@ -164,21 +243,31 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   padding: 90px 20px 32px;
 }
 
+/* Camada semitransparente por cima do gradiente da capa, para suavizar as cores. Fica atrás do conteúdo (z-index 1). */
 .cover-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(243, 230, 189, 0.45) 0%, rgba(253, 155, 183, 0.42) 55%, rgba(100, 13, 20, 0.35) 100%); z-index: 1;
 }
 
+/* Grade de duas colunas (texto e foto). O z-index 2 deixa o conteúdo acima da camada colorida. No tablet vira uma coluna (ver seção 12). */
 .hero { position: relative; z-index: 2; width: 100%; max-width: 1100px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center; }
+/* Palavra 'Portfólio' em letra cursiva. */
 .hero-script { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: var(--vermelho); line-height: 1; margin-bottom: -2px; }
+/* Nome grande. O clamp() faz o tamanho se adaptar à largura da tela (mínimo, ideal, máximo). */
 .hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(2.4rem, 6.5vw, 4.4rem); line-height: 1; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+/* Cargo escrito com fonte de código (Fira Code). */
 .hero-role { font-family: 'Fira Code', monospace; font-weight: 600; font-size: clamp(0.95rem, 2vw, 1.2rem); margin: 10px 0 8px; }
+/* Contêiner dos botões 'Ver projetos' e 'Falar comigo'. */
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+/* Lista dos ícones de redes sociais, lado a lado e sem marcadores. */
 .hero-social { list-style: none; display: flex; gap: 10px; }
+/* Cada ícone social: círculo de 40px com borda; ao passar o mouse ele sobe um pouco. */
 .hero-social a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--white); border: 2px solid var(--cereja); color: var(--cereja); font-size: 1.1rem; text-decoration: none; transition: transform 0.2s; }
 .hero-social a:hover { transform: translateY(-3px); }
+/* Tamanho dos ícones dentro dos círculos. */
 .hero-social img { width: 20px; height: 20px; }
 
+/* Moldura da foto de perfil: topo bem arredondado (formato de arco), borda vermelha e sombra rosa deslocada. */
 .hero-photo { 
   justify-self: center; 
   width: min(100%, 340px); 
@@ -189,174 +278,287 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   background: var(--bege-escuro); 
   display: flex;
 }
+/* A foto ocupa toda a largura da moldura. */
 .hero-photo img { width: 100%; height: auto; display: block; object-fit: contain; }
 
+/* Botões 'Ver projetos' (principal) e 'Falar comigo' (secundário). */
 /* Botões padrões de ação global */
 .btn-primary, .btn-secondary {
   text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 10px 22px;
   border-radius: 999px; transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
+/* Botão principal: fundo vermelho e texto branco. */
 .btn-primary { background: var(--btn-bg); color: #ffffff; box-shadow: 0 6px 16px rgba(173, 40, 49, 0.3); }
+/* Ao passar o mouse ou clicar: escurece e sobe 2px. */
 .btn-primary:hover, .btn-primary:active { background: var(--btn-hover-bg); color: #ffffff; transform: translateY(-2px); }
+/* Botão secundário: fundo branco com borda. */
 .btn-secondary { background: var(--white); color: var(--cereja); border: 2px solid var(--cereja); }
+/* Ao passar o mouse ou clicar: fundo rosa claro e sobe 2px. */
 .btn-secondary:hover, .btn-secondary:active { background: var(--rosa-claro); transform: translateY(-2px); }
 
+/* ==================================================================
+   6. SOBRE MIM (FICHÁRIO)
+   Foto em formato de crachá e texto sobre papel quadriculado com argolas.
+   ================================================================== */
 /* Layout da seção Sobre, estilizado como bloco escolar/fichário */
+/* Fundo rosa. O overflow hidden impede que a decoração do canto vaze da seção. */
 .section-about { position: relative; overflow: hidden; background: var(--rosa); padding: 48px 20px; }
+/* Decoração: retângulo quadriculado (feito com gradientes) girado 14 graus e preso no canto direito. */
 .cutting-mat-decor {
   position: absolute; top: 40px; right: -40px; width: 340px; height: 220px;
   background-color: var(--vermelho); background-image: linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px);
   background-size: 24px 24px; border-radius: 16px; transform: rotate(14deg); box-shadow: var(--shadow-soft);
 }
+/* Coloca foto e fichário lado a lado; o flex-wrap quebra para outra linha quando falta espaço. */
 .about-container { position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 36px; align-items: center; justify-content: center; }
+/* Cartão da foto (crachá) com proporção fixa. As variáveis --foto-zoom e --foto-pos ajustam o zoom e a posição da foto. O hover inclina o cartão. */
 .id-card {
   --foto-zoom: 1.25; --foto-pos: 50% 50%; flex: 0 1 230px; aspect-ratio: 55 / 85;
   background: rgba(255, 255, 255, 0.4); border: 6px solid rgba(255, 255, 255, 0.9); border-radius: 18px;
   box-shadow: var(--shadow-soft); padding: 8px; transition: transform 0.3s ease;
 }
+/* Efeito ao passar o mouse: sobe e gira levemente. */
 .id-card:hover { transform: translateY(-4px) rotate(-1.5deg); }
+/* Moldura interna que corta (overflow hidden) as bordas da foto. */
 .photo-frame { width: 100%; height: 100%; overflow: hidden; border-radius: 12px; background: var(--bege-escuro); }
+/* A foto preenche a moldura (object-fit cover) com o zoom definido na variável. */
 .foto-perfil { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--foto-pos); transform: scale(var(--foto-zoom)); }
 
+/* Coluna da direita (saudação e fichário). O min-width 0 evita que o conteúdo estoure a largura. */
 .binder-side { flex: 1 1 380px; min-width: 0; }
+/* Saudação 'Olá, eu sou'. */
 .greeting { font-weight: 800; }
+/* A palavra 'Olá,' em letra cursiva. */
 .greeting-script { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2rem; }
+/* Nome em destaque dentro de uma caixinha branca arredondada. */
 .greeting-name {
   display: inline-block; margin: 2px 0 10px; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; color: var(--vermelho); line-height: 1.1;
   background: var(--white); padding: 2px 16px; border-radius: 16px; box-shadow: var(--shadow-soft);
 }
+/* Folha de papel quadriculado (os gradientes desenham as linhas). O padding esquerdo maior abre espaço para as argolas. */
 .binder-paper {
   position: relative; background-color: var(--papel); background-image: linear-gradient(var(--papel-linha) 1px, transparent 1px), linear-gradient(90deg, var(--papel-linha) 1px, transparent 1px);
   background-size: 22px 22px; border-radius: 14px; padding: 18px 24px 18px 48px; box-shadow: var(--shadow-soft);
 }
+/* Desenha as argolas metálicas na lateral esquerda da folha (radial-gradient repetido na vertical). */
 .binder-paper::before {
   content: ''; position: absolute; left: -14px; top: 14px; bottom: 14px; width: 34px;
   background: radial-gradient(15px 5px at 50% 50%, var(--binder-ring-top) 0, var(--binder-ring-bot) 65%, transparent 70%) 0 0 / 34px 22px repeat-y; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); pointer-events: none;
 }
+/* Espaço entre os blocos de texto da folha. */
 .paper-block { margin-bottom: 12px; }
+/* O último bloco não precisa de espaço embaixo. */
 .paper-block:last-child { margin-bottom: 0; }
+/* Tamanho do texto dentro da folha. */
 .paper-block p, .paper-list li { font-size: 0.95rem; }
+/* Etiqueta arredondada dos títulos de cada bloco (Sobre mim, Formação acadêmica, Objetivo). */
 .pill-label { display: inline-block; margin-bottom: 8px; padding: 2px 14px; background: var(--rosa-claro); border: 1.5px solid var(--cereja); border-radius: 999px; font-weight: 700; font-size: 0.88rem; }
+/* Lista da formação sem os marcadores padrão. */
 .paper-list { list-style: none; }
+/* Cada item da lista, com espaço à esquerda para a estrela. */
 .paper-list li { position: relative; padding-left: 18px; margin-bottom: 6px; }
+/* Coloca uma estrela como marcador de cada item. */
 .paper-list li::before { content: '★'; position: absolute; left: 0; color: var(--vermelho); font-size: 0.8rem; }
+/* Botão 'Ler mais': sem fundo e sublinhado, para parecer um link. */
 .text-toggle-btn { margin-top: 6px; background: none; border: none; cursor: pointer; color: var(--vermelho); font-weight: 700; font-size: 0.88rem; font-family: inherit; text-decoration: underline; }
 
+/* ==================================================================
+   7. PROJETOS (FILTROS E CARTÕES GIRATÓRIOS)
+   Fundo quadriculado, botões de filtro e cartões que viram ao clicar (efeito flip).
+   ================================================================== */
 /* Configurações visuais da seção Projetos */
+/* Fundo vermelho com linhas brancas translúcidas formando uma grade (estilo caderno quadriculado), criada com gradientes. */
 .section-projects { background-color: var(--vermelho); background-image: linear-gradient(rgba(255,255,255,0.16) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.16) 2px, transparent 2px); background-size: 90px 90px; padding: 0 20px 36px; }
+/* Aba branca no topo da seção, com cantos arredondados só embaixo. Também é usada na seção Habilidades. */
 .section-header-tab { width: 100%; max-width: 640px; margin: 0 auto 28px; padding: 14px 24px 18px; background: var(--white); border-radius: 0 0 20px 20px; text-align: center; box-shadow: var(--shadow-soft); }
+/* Título da seção. */
 .section-header-tab h2 { font-size: 1.35rem; font-weight: 800; }
+/* Frase de dica abaixo do título. */
 .section-hint { font-size: 0.85rem; color: var(--texto-suave); }
 
+/* Botões de filtro (Todos, Front-end/Web, Back-end) criados pelo JavaScript. */
 /* Estilização da barra de filtros dos projetos */
+/* Alinha os botões de filtro no centro, quebrando linha se precisar. */
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin: 0 auto 8px; }
+/* Botão de filtro em formato de pílula. */
 .filtro-btn { font: inherit; font-weight: 700; font-size: 0.85rem; padding: 7px 16px; border-radius: 999px; border: 2px solid var(--filtro-border); background: var(--filtro-bg); color: var(--filtro-color); cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+/* Cor de fundo ao passar o mouse. */
 .filtro-btn:hover { background: var(--filtro-hover-bg); }
+/* Filtro selecionado (a classe 'ativo' é colocada pelo JavaScript). */
 .filtro-btn.ativo { background: var(--filtro-ativo-bg); color: var(--filtro-ativo-color); border-color: var(--filtro-ativo-border); }
+/* Coloca um '✓' antes do texto do filtro ativo, para a seleção não depender só da cor (acessibilidade). */
 .filtro-btn[aria-pressed="true"]::before { content: "✓ "; }
+/* Texto 'X projetos encontrados', em branco sobre o fundo vermelho. */
 .contagem { text-align: center; color: #ffffff; font-weight: 700; margin-bottom: 16px; }
+/* Caixa branca do aviso 'Nenhum projeto nesta categoria'. */
 .sem-resultados { max-width: 420px; margin: 0 auto; text-align: center; background: var(--white); padding: 22px; border-radius: 16px; }
+/* Espaço e negrito do texto do aviso. */
 .sem-resultados p { margin-bottom: 12px; font-weight: 600; }
 
+/* Como o giro funciona: o wrapper dá a perspectiva 3D, o inner é a peça que gira e frente/verso ficam um sobre o outro. */
 /* Contêiner e cards 3D dos projetos (efeito flip) */
+/* Organiza os cartões lado a lado, quebrando linha quando necessário. */
 .photocards-grid { width: 100%; max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+/* Envolve cada cartão. O perspective cria a profundidade 3D, a altura é fixa (470px) e o flex permite vários cartões por linha. */
 .photocard-wrapper { perspective: 1200px; height: 470px; flex: 1 1 290px; max-width: 340px; cursor: default; }
+/* Peça que realmente gira: o preserve-3d mantém frente e verso em 3D e a transition faz o giro durar 0,5s. */
 .photocard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1); }
+/* Quando o JavaScript adiciona a classe 'flipped', o cartão gira 180 graus e mostra o verso. */
 .photocard-wrapper.flipped .photocard-inner { transform: rotateY(180deg); }
 
+/* Estilo comum a frente e verso: ficam um sobre o outro (position absolute) e o backface-visibility hidden esconde o lado que está de costas. */
 .photocard-front, .photocard-back {
   position: absolute; inset: 0; backface-visibility: hidden; border-radius: 20px; padding: 16px; display: flex; flex-direction: column;
   border: 3px solid rgba(255, 255, 255, 0.95); box-shadow: var(--shadow-soft); transition: box-shadow 0.3s ease;
 }
+/* Sombra maior ao passar o mouse no cartão. */
 .photocard-wrapper:hover .photocard-front, .photocard-wrapper:hover .photocard-back { box-shadow: var(--shadow-hover); }
+/* Frente do cartão: gradiente de creme para rosa. */
 .photocard-front { background: linear-gradient(180deg, #FFF3D6 0%, #FFE3EA 100%); }
+/* Verso do cartão: já vem girado 180 graus (para ficar legível quando o cartão virar) e rola se o texto for grande. */
 .photocard-back { background: var(--papel); transform: rotateY(180deg); justify-content: flex-start; gap: 8px; overflow-y: auto; padding: 18px; }
 
+/* Linha do topo da frente: número do projeto (ex.: 01 / 03) e categoria. */
 .card-top-meta { display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 0.72rem; font-weight: 600; color: var(--texto-suave); }
+/* Área central da frente: caixa onde aparece o trecho de código do projeto. */
 .card-art { position: relative; flex: 1; margin: 10px 0; border: 2px solid var(--cereja); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--white); }
+/* Aparência de código: fundo vinho, texto rosa e fonte Fira Code. */
 .code-art { background: var(--cereja); color: var(--rosa); padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.7rem; line-height: 1.5; }
+/* Mantém as quebras de linha do código, mas quebra linhas muito longas para não estourar o cartão. */
 .code-art pre { text-align: left; white-space: pre-wrap; overflow-wrap: anywhere; }
 
+/* Legenda da frente: nome do projeto e botão 'Ver detalhes'. */
 .card-caption { background: var(--rosa-claro); border: 1.5px solid var(--cereja); border-radius: 10px; padding: 8px; text-align: center; transition: background-color 0.25s ease; }
+/* A legenda fica branca ao passar o mouse. */
 .photocard-wrapper:hover .card-caption { background: var(--white); }
+/* Tamanho do nome do projeto. */
 .card-caption h3 { font-size: 1.05rem; font-weight: 800; }
 
+/* Faixa do topo do verso com o tipo do projeto (ex.: Projeto de aula • Back-end). */
 .card-back-header { font-family: 'Fira Code', monospace; font-size: 0.76rem; font-weight: 600; color: var(--vermelho); border-bottom: 2px dashed var(--bege-escuro); padding-bottom: 6px; }
+/* Nome do projeto no verso. */
 .card-back-body h3 { font-size: 1.15rem; margin-bottom: 4px; overflow-wrap: anywhere; }
+/* Texto de apoio do verso. */
 .card-back-body p { font-size: 0.85rem; color: var(--texto-suave); line-height: 1.45; overflow-wrap: anywhere; }
+/* Lista do verso com Problema, Público e Contribuição. */
 .card-detalhes-lista { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 0.82rem; color: var(--cereja); }
+/* Rótulos (Problema, Público, Contribuição) em vermelho. */
 .card-detalhes-lista li strong { color: var(--vermelho); }
+/* Contêiner das etiquetas de tecnologias. */
 .card-techs { display: flex; flex-wrap: wrap; gap: 5px; }
+/* Cada etiqueta de tecnologia (ex.: Java, Maven) em formato de pílula. */
 .card-techs span { background: var(--bege-escuro); font-size: 0.74rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+/* Botões do verso (Repositório, Demonstração e Voltar). O margin-top auto empurra o grupo para o fim do cartão. */
 .card-acoes { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+/* Botão de link (Repositório / Demonstração): fundo vermelho, texto branco. */
 .repo-btn { display: block; text-align: center; text-decoration: none; background: var(--btn-bg); color: #ffffff; font-weight: 700; font-size: 0.88rem; padding: 8px 16px; border-radius: 999px; transition: background-color 0.2s, transform 0.2s; }
+/* Ao passar o mouse: escurece e sobe 1px. */
 .repo-btn:hover, .repo-btn:active { background: var(--btn-hover-bg); color: #ffffff; transform: translateY(-1px); }
+/* Botões 'Ver detalhes' e 'Voltar': só contorno vermelho, sem preenchimento. */
 .card-btn { font: inherit; font-weight: 700; font-size: 0.84rem; margin-top: 4px; padding: 7px 14px; background: transparent; color: var(--vermelho); border: 2px solid var(--vermelho); border-radius: 999px; cursor: pointer; }
+/* Ao passar o mouse: preenche de vermelho com texto branco. */
 .card-btn:hover { background: var(--btn-bg); border-color: var(--btn-bg); color: #ffffff; }
 
+/* ==================================================================
+   8. HABILIDADES (TECH STACK)
+   Grade de ícones das tecnologias, criada pelo JavaScript.
+   ================================================================== */
 /* Estrutura visual da grade de habilidades */
+/* Fundo da seção Habilidades. */
 .section-skills { background: var(--bege); padding: 0 20px 36px; }
+/* Limita a largura da área e a centraliza. */
 .skills-container { width: 100%; max-width: 820px; margin: auto; }
+/* Caixa rosa com borda branca, imitando uma embalagem blister, que guarda a grade. */
 .blister-pack { background: var(--rosa-claro); border: 4px solid rgba(255, 255, 255, 0.85); border-radius: 22px; padding: 28px 24px; box-shadow: var(--shadow-soft); }
+/* Título 'Tech Stack' em fonte cursiva. */
 .tech-titulo { font-family: 'Playfair Display', serif; font-size: 1.5rem; text-align: center; margin-bottom: 22px; }
 
+/* Grade de 4 colunas (vira 2 no celular, ver seção 12). */
 .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 14px; max-width: 660px; margin: 0 auto; justify-items: center; }
+/* Cada tecnologia: coluna com ícone, nome e contexto. A transição tem efeito de 'mola'. */
 .tech-badge { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: default; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+/* Quadrado branco de cantos arredondados que guarda o ícone da tecnologia. */
 .tech-icon {
   width: 72px; height: 72px; padding: 12px; background: var(--white);
   border: 3px solid var(--bege-escuro); border-radius: 14px; box-shadow: var(--shadow-soft);
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease, box-shadow 0.25s ease;
 }
+/* O ícone ocupa todo o quadrado sem deformar (object-fit contain). */
 .tech-icon img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.28s ease; }
+/* Nome da tecnologia (ex.: Java). */
 .tech-name { font-size: 0.78rem; font-weight: 700; color: var(--cereja); text-align: center; }
+/* Frase de contexto abaixo do nome (ex.: POO e lógica back-end). */
 .tech-cat { font-size: 0.68rem; font-weight: 600; color: var(--texto-suave); text-align: center; line-height: 1.2; }
 
+/* Efeito ao passar o mouse: o ícone sobe, inclina, aumenta e ganha borda vermelha. */
 .tech-badge:hover .tech-icon { transform: translateY(-6px) rotate(-4deg) scale(1.06); border-color: var(--vermelho); box-shadow: 0 12px 22px rgba(100, 13, 20, 0.22); }
+/* Os itens pares inclinam para o lado oposto, deixando o efeito mais divertido. */
 .tech-badge:nth-child(even):hover .tech-icon { transform: translateY(-6px) rotate(4deg) scale(1.06); }
 
+/* ==================================================================
+   9. CONTATO (CARTÃO DE CONTATOS E FORMULÁRIO)
+   Links diretos em um cartão dourado e formulário com aparência de bloco de notas.
+   ================================================================== */
 /* Layout da seção e formulário de Contato */
+/* Fundo rosa da seção Contato. */
 .section-contact { position: relative; background: var(--rosa); padding: 48px 20px; }
+/* Coluna centralizada que empilha título, cartão de contatos e formulário. */
 .contact-layout { 
   width: 100%; max-width: 650px; margin: 0 auto; 
   display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center; 
 }
+/* Título 'Vamos criar algo juntos?' em fonte cursiva. */
 .thank-you { 
   font-family: 'Playfair Display', serif; font-style: italic; 
   font-size: clamp(1.6rem, 3.8vw, 2.4rem); line-height: 1.2; 
   width: 100%;
 }
 
+/* Cartão dourado ('papel amassado') que guarda os contatos diretos. */
 .crumpled-card { 
   background: linear-gradient(135deg, #E9B35F 0%, #D8973C 50%, #E9B35F 100%); 
   border-radius: 22px; padding: 28px 24px; box-shadow: var(--shadow-soft); 
   width: 100%; max-width: 520px; text-align: center;
 }
+/* Título 'Contatos' do cartão. */
 .crumpled-card h3 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin-bottom: 14px; }
 
+/* Empilha os botões de contato um embaixo do outro. */
 .contact-pills { display: flex; flex-direction: column; gap: 10px; }
+/* Cada contato (e-mail, LinkedIn, GitHub): botão branco arredondado com ícone e texto. */
 .contact-pill {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   text-decoration: none; cursor: pointer; background: var(--white); color: var(--cereja);
   border: 1.5px solid var(--cereja); border-radius: 999px; padding: 9px 16px; font-family: inherit; font-weight: 700; font-size: 0.9rem; overflow-wrap: anywhere; transition: background-color 0.2s, transform 0.2s;
 }
+/* Ao passar o mouse: fundo bege e sobe 2px. */
 .contact-pill:hover { background: var(--bege-escuro); transform: translateY(-2px); }
+/* Tamanho dos ícones dos contatos. */
 .contact-pill img { width: 18px; height: 18px; }
+/* Tamanho do ícone de e-mail (✉). */
 .pill-icon { font-size: 1.1rem; line-height: 1; }
 
+/* Formulário com aparência de bloco de notas: as linhas horizontais (a cada 34px) são desenhadas com gradiente. */
 .notepad-form {
   position: relative; background-color: var(--papel); background-image: linear-gradient(var(--papel-linha) 1px, transparent 1px);
   background-size: 100% 34px; border-radius: 14px; padding: 24px 24px 24px 44px; box-shadow: var(--shadow-soft);
   width: 100%; max-width: 600px; text-align: left;
 }
+/* Desenha os furos do caderno na lateral esquerda do formulário. */
 .notepad-form::before {
   content: ''; position: absolute; left: 14px; top: 20px; bottom: 20px; width: 16px;
   background: radial-gradient(circle at 50% 50%, var(--rosa) 0 5px, #e0c68a 6px, transparent 7px) 0 0 / 16px 34px repeat-y; pointer-events: none;
 }
+/* Texto explicativo no início do formulário. */
 .form-intro { font-size: 0.88rem; color: var(--texto-suave); margin-bottom: 14px; }
+/* Espaço entre um campo e outro. */
 .form-group { margin-bottom: 12px; list-style: none; }
+/* Rótulo de cada campo (Nome, E-mail...). */
 .form-group label { display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 4px; }
+/* Coloca o rótulo 'Mensagem' e o contador de caracteres nas pontas da mesma linha. */
 .label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 
+/* Dica pequena abaixo do campo com a regra de preenchimento. */
 .form-group .dica { 
   display: block; 
   font-size: 0.72rem; 
@@ -365,17 +567,25 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   margin-top: 2px; 
 }
 
+/* Contador de caracteres da mensagem (0 / 1000). */
 #contador-msg { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--texto-suave); }
+/* O contador fica vermelho quando está fora do limite (classe colocada pelo JavaScript). */
 #contador-msg.contador-alerta { color: var(--erro); font-weight: 700; }
 
+/* Aparência comum dos campos: largura total, borda vinho, cantos arredondados e fonte igual à do site. */
 .notepad-form input, .notepad-form select, .notepad-form textarea {
   width: 100%; padding: 9px 14px; border: 1.5px solid var(--cereja); border-radius: 14px; background: var(--white); color: var(--cereja); font-family: inherit; font-size: 0.92rem;
 }
+/* A caixa de mensagem só pode ser redimensionada na vertical. */
 .notepad-form textarea { resize: vertical; }
+/* Campo selecionado: borda vermelha. */
 .notepad-form input:focus, .notepad-form select:focus, .notepad-form textarea:focus { border-color: var(--vermelho); }
+/* Campo com erro (marcado pelo JavaScript): borda vermelha grossa e fundo rosado. */
 .notepad-form [aria-invalid="true"] { border-color: var(--erro); border-width: 2.5px; background: var(--form-invalid-bg, #fff5f8); }
+/* Mensagem de erro abaixo do campo. O min-height reserva o espaço para a tela não 'pular' quando o erro aparece. */
 .erro-msg { display: block; min-height: 1.2em; margin-top: 2px; font-size: 0.78rem; font-weight: 600; color: var(--erro); }
 
+/* Faixa vermelha com o resumo de erros, que aparece acima do botão de enviar. */
 .resumo-erros {
   margin: 12px 0 8px;
   padding: 12px 20px;
@@ -389,66 +599,112 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
   border: none;
 }
 
+/* Área de status do envio (Enviando, sucesso ou falha). */
 #status-envio { margin: 6px 0; text-align: center; font-size: 0.88rem; font-weight: 700; border-radius: 8px; }
+/* Só ganha espaçamento interno quando tem texto. */
 #status-envio:not(:empty) { padding: 8px; }
+/* Cores de cada estado do envio: verde (sucesso), vermelho (erro) e cinza (processando). */
 #status-envio.sucesso { background: #0a7a3d; color: #ffffff; }
 #status-envio.erro { background: var(--erro); color: #ffffff; }
 #status-envio.processando { background: #4b5563; color: #ffffff; }
 
+/* Botão 'Enviar mensagem': vermelho, arredondado e centralizado. */
 .submit-btn { display: block; margin: 12px auto 0; padding: 11px 30px; background: var(--btn-bg); color: #ffffff; border: none; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 0.95rem; font-weight: 700; transition: background-color 0.2s, transform 0.2s; }
+/* Ao passar o mouse: escurece e sobe 2px. */
 .submit-btn:hover, .submit-btn:active { background: var(--btn-hover-bg); color: #ffffff; transform: translateY(-2px); }
+/* Enquanto envia, o botão fica mais claro e o cursor mostra que não pode clicar. */
 .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
+/* ==================================================================
+   10. RODAPÉ
+   Faixa branca no fim da página com os direitos autorais.
+   ================================================================== */
 .tape-footer { background: var(--white); font-weight: 800; font-size: 0.82rem; text-align: center; padding: 20px 0; }
 
+/* ==================================================================
+   11. AJUSTES DO TEMA ESCURO
+   Quando o JavaScript coloca data-theme='dark' no html, estas regras mais específicas sobrescrevem as cores do tema claro.
+   ================================================================== */
 /* Customizações visuais aplicadas no tema escuro via atributo data-theme */
+/* Capa: fundo quase preto com um brilho rosa no lado direito. */
 [data-theme="dark"] .section-cover { background: radial-gradient(circle at 75% 40%, rgba(220, 20, 103, 0.28), transparent 55%), #121212; }
+/* Esconde a camada colorida da capa. */
 [data-theme="dark"] .cover-overlay { display: none; }
+/* Menu escuro e translúcido. */
 [data-theme="dark"] .binder-nav { background: rgba(27, 27, 27, 0.94); border-color: #383838; }
+/* Projetos: fundo quase preto com a grade bem discreta. */
 [data-theme="dark"] .section-projects { background-color: #161616; background-image: linear-gradient(rgba(255,255,255,0.05) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.05) 2px, transparent 2px); }
+/* Frente dos cartões em cinza escuro. */
 [data-theme="dark"] .photocard-front { background: #1f1f1f; }
+/* Área do código mais escura, com texto rosa. */
 [data-theme="dark"] .code-art { background: #0d0d0d; color: #ff8fb8; }
+/* Cartão de contatos em tons de marrom escuro. */
 [data-theme="dark"] .crumpled-card { background: linear-gradient(135deg, #4a3319 0%, #312110 50%, #4a3319 100%); border: 1.5px solid #6b4c24; color: #ffffff; }
+/* Título e botões do cartão de contatos com texto claro. */
 [data-theme="dark"] .crumpled-card h3, [data-theme="dark"] .crumpled-card .contact-pill { color: #f0f0f0; }
+/* Aba do título das seções em cinza escuro. */
 [data-theme="dark"] .section-header-tab { background: #1f1f1f; color: #f0f0f0; }
+/* Decoração do canto usa a cor de acento (rosa forte). */
 [data-theme="dark"] .cutting-mat-decor { background-color: var(--acento); }
+/* O ícone do GitHub é preto; o filter invert(1) o deixa branco para aparecer no fundo escuro. */
 [data-theme="dark"] .ico-gh, [data-theme="dark"] .tech-icon img[src*="github"], [data-theme="dark"] .contact-pill img[src*="github"] { filter: invert(1); }
+/* Campos do formulário com fundo escuro e texto claro. */
 [data-theme="dark"] .notepad-form input, [data-theme="dark"] .notepad-form select, [data-theme="dark"] .notepad-form textarea { background: #121212; color: #f0f0f0; border-color: #666666; }
+/* Botão secundário no tema escuro. */
 [data-theme="dark"] .btn-secondary { background: #242424; color: #f0f0f0; border-color: #ff4d79; }
+/* Hover do botão secundário no tema escuro. */
 [data-theme="dark"] .btn-secondary:hover, [data-theme="dark"] .btn-secondary:active { background: #3d1c28; color: #ffffff; }
+/* Botões de contato escuros dentro do cartão. */
 [data-theme="dark"] .crumpled-card .contact-pill { background: #1a1a1a; border-color: #6b4c24; }
+/* Etiquetas do fichário em rosa sobre fundo escuro. */
 [data-theme="dark"] .pill-label { background: #3d1c28; color: #ff8cb8; border-color: #ff4d79; }
+/* Botão 'Ler mais' em rosa claro. */
 [data-theme="dark"] .text-toggle-btn { color: #ff8cb8; }
+/* Estrelas da lista em rosa. */
 [data-theme="dark"] .paper-list li::before { color: #ff4d79; }
+/* Links do menu em cinza claro. */
 [data-theme="dark"] .nav-tab { color: #f0f0f0; }
+/* Botão de tema em cinza claro. */
 [data-theme="dark"] .theme-btn { color: #f0f0f0; }
 
+/* ==================================================================
+   12. RESPONSIVIDADE (TABLET E CELULAR)
+   As regras dentro de cada @media só valem quando a tela é menor que a largura indicada.
+   ================================================================== */
 /* Adaptação para telas médias (tablets) */
 @media (max-width: 860px) { 
+  /* Capa em uma coluna só (foto abaixo do texto), tudo centralizado. */
   .hero { grid-template-columns: 1fr; text-align: center; } 
+  /* Botões e ícones sociais centralizados. */
   .hero-actions, .hero-social { justify-content: center; } 
+  /* Foto menor nas telas médias. */
   .hero-photo { width: min(90%, 280px); } 
 }
 
 /* Adaptação para dispositivos móveis */
 @media (max-width: 768px) {
+  /* Menu mais compacto: menos espaçamento e fontes menores, para caber em uma linha. */
   .binder-nav { padding: 10px 16px; gap: 14px; }
   .nav-links { flex-wrap: nowrap; gap: 14px; }
   .nav-tab { font-size: 13px; padding: 0; letter-spacing: -0.02em; }
   .nav-tab[aria-current] { padding: 6px 10px; }
   .theme-btn { font-size: 16px; padding: 0; margin-left: 2px; }
   .section-cover { padding-top: 90px; }
+  /* Decoração do canto menor. */
   .cutting-mat-decor { width: 200px; height: 140px; right: -50px; }
+  /* Seção Sobre: foto em cima e fichário embaixo. */
   .about-container { flex-direction: column; align-items: center; gap: 24px; }
   .id-card { width: min(70%, 220px); flex: unset; }
   .binder-side { width: 100%; }
   .greeting-script { font-size: 1.6rem; }
   .greeting-name { font-size: 1.6rem; padding: 2px 12px; margin-bottom: 10px; }
+  /* Folha do fichário com margens menores. */
   .binder-paper { padding: 16px 16px 16px 40px; }
   .binder-paper::before { left: -12px; width: 28px; background-size: 28px 22px; }
   .paper-block p, .paper-list li { font-size: 0.9rem; }
 }
 
+/* Celulares menores (até 640px): menu ocupa quase toda a largura e a grade de habilidades passa para 2 colunas. */
 @media (max-width: 640px) {
   .binder-nav { width: calc(100vw - 16px); padding: 10px 12px; gap: 10px; }
   .nav-links { flex-wrap: nowrap; justify-content: space-between; gap: 10px; }
@@ -459,18 +715,27 @@ select:focus-visible, textarea:focus-visible, .photocard-wrapper:focus-visible {
 
 /* Telas muito pequenas */
 @media (max-width: 390px) {
+  /* Menu ainda mais compacto, com cantos menos arredondados. */
   .binder-nav { border-radius: 20px; padding: 8px 10px; gap: 8px; }
   .nav-links { flex-wrap: nowrap; justify-content: space-between; gap: 8px; }
   .nav-tab { font-size: 11px; padding: 0; letter-spacing: -0.04em; }
   .theme-btn { font-size: 14px; padding: 0; margin-left: 0; }
+  /* Mais espaço no topo da capa para o menu não cobrir o conteúdo. */
   .section-cover { padding-top: 112px; }
+  /* Foto menor e fichário mais justo nas telas muito pequenas. */
   .id-card { width: min(80%, 180px); } 
   .binder-paper { padding: 14px 12px 14px 34px; }
   .binder-paper::before { width: 24px; }
 }
 
+/* ==================================================================
+   13. MOVIMENTO REDUZIDO (ACESSIBILIDADE)
+   Para quem ativou 'reduzir movimento' no aparelho: desliga as animações.
+   ================================================================== */
 /* Remove ou reduz as animações caso o usuário prefira configurações de acessibilidade sem movimento */
 @media (prefers-reduced-motion: reduce) {
+    /* Desliga transições, animações e transformações de todos os elementos. */
     * { transition: none !important; animation: none !important; transform: none !important; }
+  /* As seções ficam visíveis desde o início, sem o efeito de fade-in. */
   .fade-in-hidden { opacity: 1; transform: none; }
 }
